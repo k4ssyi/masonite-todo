@@ -1,0 +1,41 @@
+<h1>Index</h1>
+<table border="1">
+  <tr>
+    <th>id</th>
+    <th>やること</th>
+    <th>ステータス</th>
+    <th>編集</th>
+    <th>削除</th>
+  </tr>
+  {% for todo in todo_list %}
+  <tr>
+    <td>{{todo.id}}</td>
+    <td>{{todo.body}}</td>
+    <td>
+      {% if todo.status==0 %}
+      未着手
+      {% endif %}
+      {% if todo.status==1 %}
+      進行中
+      {% endif %}
+      {% if todo.status==2 %}
+      終了
+      {% endif %}
+    </td>
+    <td><a href="{{ '/todo/' ~ todo.id ~ '/edit' }}">編集</a></td>
+    <!-- 「~」を使うとintをstr型に変換した上で文字列と結合してくれる -->
+    <td>
+      <form method="post" action="{{ '/todo/' ~ todo.id ~ '/delete' }}">
+        {{ csrf_field }}
+        <button>削除</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<form method="post" action="/todo">
+  {{ csrf_field }}
+  <input type="text" name='body'>
+  <button type="submit">送信</button>
+</form>

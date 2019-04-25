@@ -1,0 +1,17 @@
+<h1>Edit</h1>
+<form action="{{ '/todo/' ~ todo.id ~ '/update' }}" method="POST">
+  {{ csrf_field }}
+  <p>id: {{todo.id}}</p>
+  <div>
+    <p>やること:</p>
+    <textarea name="body">{{todo.body}}</textarea>
+  </div>
+  <p>ステータス:
+    <select name="status">
+      <option value='0' {% if todo.status==0 %} selected="selected"{% endif %}>未着手</option>
+      <option value='1' {% if todo.status==1 %} selected="selected"{% endif %}>進行中</option>
+      <option value='2' {% if todo.status==2 %} selected="selected"{% endif %}>終了</option>
+    </select>
+  </p>
+  <a ><button type="submit">編集</button></a>
+</form>
